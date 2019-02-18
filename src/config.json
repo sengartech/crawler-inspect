@@ -38,5 +38,16 @@
       "link": "",
       "command": "whois -h whois.radb.net -- '-i origin AS13414' | grep ^route"
     }
+  ],
+  "domainList": [
+    ".crawl.baidu.com",
+    ".crawl.baidu.jp",
+    ".search.msn.com",
+    ".google.com",
+    ".googlebot.com",
+    ".crawl.yahoo.net",
+    ".yandex.ru",
+    ".yandex.net",
+    ".yandex.com"
   ]
 }

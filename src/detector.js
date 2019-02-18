@@ -2,6 +2,7 @@
  * importing modules.
  */
 const exec = require('child_process').exec
+const dns = require('dns')
 
 const config = require('./config.json')
 
@@ -82,7 +83,7 @@ let setAllowedIpList = () => {
       resolve()
     })
     .catch((error) => {
-      console.log(`-- error while checking isCrawler --`)
+      console.log(`-- error while setAllowedIpList --`)
       console.log(error)
       reject({ error: true, data: 'error while checking isCrawler' })
     })
@@ -93,14 +94,71 @@ let setAllowedIpList = () => {
  * params: ipAddress.
  */
 let ifExistInAllowedIpList = (ipAddress) => {
-  let index = allowedIpList.indexOf(ipAddress)
-
-  if (index === -1) {
-    return false
-  } else {
-    return true
-  }
+  let flag = false
+  flag = allowedIpList.includes(ipAddress)
+  return flag
 } // end of the ifExistInAllowedIpList function.
+
+/**
+ * function to check if ipAddress is in domain list.
+ * params: ipAddress.
+ */
+let ifExistInDomainList = (ipAddress) => {
+  let hostLookup = () => {
+    return new Promise((resolve, reject) => {
+      dns.lookupService(ipAddress, 22, (err, hostname, service) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(hostname)
+        }
+      }) // end lookupService.
+    })
+  } // end of the hostLookup function.
+
+  let addressLookup = (hostname) => {
+    return new Promise((resolve, reject) => {
+      dns.lookup(hostname, { family: 4 }, (err, address, family) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve({ address, hostname })
+        }
+      }) // end lookup.
+    })
+  } // end of the addressLookup function.
+
+  // function to verify.
+  let verify = (passedData) => {
+    return new Promise((resolve, reject) => {
+      if (passedData.address === ipAddress) {
+        let flag = false
+        for (let i = 0; i < config.domainList.length; i++) {
+          flag = passedData.hostname.endsWith(config.domainList[i])
+
+          if (flag) break
+        } // end for.
+
+        resolve(flag)
+      } else {
+        reject('request and result ip not matched, proxy used.')
+      }
+    })
+  } // end of the verify.
+
+  // making promise call.
+  hostLookup()
+    .then(addressLookup)
+    .then(verify)
+    .then((result) => {
+      return result
+    })
+    .catch((error) => {
+      console.log(`-- error while checking ifExistInDomainList --`)
+      console.log(error)
+      return false
+    })
+} // end of the ifExistInDomainList function.
 
 /**
  * function to check given ip is crawler or not.
@@ -108,7 +166,7 @@ let ifExistInAllowedIpList = (ipAddress) => {
  * params: ipAddress
  */
 let isCrawler = (ipAddress) => {
-  
+
 } // end of the isCrawler function.
 
 /**
