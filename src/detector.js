@@ -85,12 +85,12 @@ let setAllowedIpList = () => {
     .catch((error) => {
       console.log(`-- error while setAllowedIpList --`)
       console.log(error)
-      reject({ error: true, data: 'error while checking isCrawler' })
+      reject({ error: true, data: 'error while setAllowedIpList' })
     })
 } // end of the setAllowedIpList function.
 
 /**
- * function to check is ipAddress is in allowedIpList.
+ * function to check if ipAddress is in allowedIpList.
  * params: ipAddress.
  */
 let ifExistInAllowedIpList = (ipAddress) => {
@@ -161,17 +161,10 @@ let ifExistInDomainList = (ipAddress) => {
 } // end of the ifExistInDomainList function.
 
 /**
- * function to check given ip is crawler or not.
- * return true if crawler, spider, bot.
- * params: ipAddress
- */
-let isCrawler = (ipAddress) => {
-
-} // end of the isCrawler function.
-
-/**
  * exporting function.
  */
 module.exports = {
-  isCrawler
+  setAllowedIpList,
+  ifExistInAllowedIpList,
+  ifExistInDomainList
 }

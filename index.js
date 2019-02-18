@@ -1,20 +1,33 @@
 /**
  * importing modules.
  */
-const dns = require('dns')
-const exec = require('child_process').exec
+const detector = require('./src/detector.js')
 
+/**
+ * function to check given ip is crawler or not.
+ * return true if crawler, spider, bot.
+ * params: ipAddress
+ */
+let isCrawler = (ipAddress) => {
+  detector.setAllowedIpList()
+    .then(() => {
+      if (detector.ifExistInAllowedIpList(ipAddress) || detector.ifExistInDomainList(ipAddress)) {
+        return true
+      } else {
+        return false
+      }
+    })
+    .catch((error) => {
+      console.log(`-- error while checking isCrawler --`)
+      console.log(error)
 
+      return false
+    })
+} // end of the isCrawler function.
 
-// facebooks whitelist ip - whois -h whois.radb.net -- '-i origin AS32934' | grep ^route
-// twitter whitelist ip - whois -h whois.radb.net -- '-i origin AS13414' | grep ^route
-
-// const child;
-// executes `pwd`
-exec("whois -h whois.radb.net -- '-i origin AS13414' | grep ^route", (error, stdout, stderr) => {
-  console.log('stdout: ' + stdout.split(' '))
-  console.log('stderr: ' + stderr)
-  if (error !== null) {
-    console.log('exec error: ' + error)
-  }
-})
+/**
+ * exporting function.
+ */
+module.exports = {
+  isCrawler
+}
