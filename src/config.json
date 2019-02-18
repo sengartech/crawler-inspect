@@ -1,0 +1,42 @@
+{
+  "staticIpsWhitelist": [
+    {
+      "sourceName": "DuckDuckGo",
+      "ips": [
+        "107.20.237.51",
+        "23.21.226.191",
+        "107.21.1.8",
+        "54.208.102.37"
+      ]
+    },
+    {
+      "sourceName": "ask.com",
+      "ips": [
+        "65.214.45.143",
+        "65.214.45.148",
+        "66.235.124.192",
+        "66.235.124.7",
+        "66.235.124.101",
+        "66.235.124.193",
+        "66.235.124.73",
+        "66.235.124.196",
+        "66.235.124.74",
+        "63.123.238.8",
+        "202.143.148.61"
+      ]
+    }
+  ],
+  "ipsBlacklist": [],
+  "dynamicIpsLink": [
+    {
+      "sourceName": "facebook",
+      "link": "",
+      "command": "whois -h whois.radb.net -- '-i origin AS32934' | grep ^route" 
+    },
+    {
+      "sourceName": "twitter",
+      "link": "",
+      "command": "whois -h whois.radb.net -- '-i origin AS13414' | grep ^route"
+    }
+  ]
+}
