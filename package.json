@@ -1,26 +1,28 @@
 {
-  "name": "crawler-detector",
+  "name": "crawler-inspect",
   "version": "1.0.0",
-  "description": "module to detect search engine crawlers, spiders, etc.",
+  "description": "module to detect search engine crawlers, spiders or bot.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sengartech/crawler-detector.git"
+    "url": "git+https://github.com/sengartech/crawler-inspect.git"
   },
   "keywords": [
     "detector",
     "crawler",
     "spider",
     "bot",
-    "user-agent."
+    "user-agent",
+    "inspect",
+    "detect"
   ],
   "author": "Rishabh Singh Sengar",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sengartech/crawler-detector/issues"
+    "url": "https://github.com/sengartech/crawler-inspect/issues"
   },
-  "homepage": "https://github.com/sengartech/crawler-detector#readme"
+  "homepage": "https://github.com/sengartech/crawler-inspect#readme"
 }
