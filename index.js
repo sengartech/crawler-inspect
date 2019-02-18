@@ -21,8 +21,8 @@ dns.lookup('localhost', { family: 4 }, (err, address, family) => {
 
 // const child;
 // executes `pwd`
-child = exec("whois -h whois.radb.net -- '-i origin AS13414' | grep ^route", (error, stdout, stderr) => {
-  console.log('stdout: ' + stdout)
+exec("whois -h whois.radb.net -- '-i origin AS13414' | grep ^route", (error, stdout, stderr) => {
+  console.log('stdout: ' + stdout.split(' '))
   console.log('stderr: ' + stderr)
   if (error !== null) {
     console.log('exec error: ' + error)
